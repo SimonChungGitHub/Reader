@@ -1,0 +1,46 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/menu_nfc"
+        android:icon="@drawable/ic_baseline_nfc_24"
+        android:orderInCategory="100"
+        android:title="NFC"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_qrcode"
+        android:icon="@drawable/ic_baseline_qr_code_scanner_24"
+        android:orderInCategory="100"
+        android:title="QRCode"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_qrcode_gen"
+        android:icon="@drawable/ic_baseline_qr_code_24"
+        android:orderInCategory="100"
+        android:title="QRCodeGen"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_delete"
+        android:icon="@drawable/ic_baseline_delete_forever_24"
+        android:orderInCategory="100"
+        android:title="Delete"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_upload"
+        android:icon="@drawable/ic_baseline_upload_24"
+        android:orderInCategory="100"
+        android:title="Upload"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+</menu>
