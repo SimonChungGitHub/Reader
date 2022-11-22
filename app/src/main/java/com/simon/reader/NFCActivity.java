@@ -121,8 +121,12 @@ public class NFCActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.menu_qrcode) {
             startActivity(new Intent(this, QRCodeActivity.class));
+            overridePendingTransition(R.anim.slide_in_right, android.R.anim.fade_out);
+            finish();
         } else if (id == R.id.menu_qrcode_gen) {
             startActivity(new Intent(this, QRCodeGenerateActivity.class));
+            overridePendingTransition(R.anim.slide_in_right, android.R.anim.fade_out);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
