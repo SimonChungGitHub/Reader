@@ -61,6 +61,17 @@ public class NFCActivity extends AppCompatActivity {
         tagID.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
     }
 
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        if (tag != null) {
+            String tagId = bytesToHex(tag.getId());
+            tagID.setText(tagId);
+        }
+    }
+
     @SuppressLint({"SetTextI18n", "UnspecifiedImmutableFlag"})
     @Override
     protected void onResume() {
@@ -129,18 +140,6 @@ public class NFCActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    @SuppressLint("SetTextI18n")
-    @Override
-    public void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        if (tag != null) {
-            String tagId = bytesToHex(tag.getId());
-            tagID.setText(tagId);
-        }
     }
 
     public final String bytesToHex(byte[] bytes) {
