@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -70,6 +72,7 @@ public class PictureActivity extends AppCompatActivity {
     private int successCount = 0;
     private Dialog dialog;
     private Snackbar snackbar;
+    private SharedPreferences preferences;
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -106,6 +109,8 @@ public class PictureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        url = preferences.getString("url", "");
         pictures = getPictures();
         picturesCheck = new ArrayList<>();
         adapter = getAdapter();
@@ -126,13 +131,16 @@ public class PictureActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.findItem(R.id.menu_delete).setVisible(true);
         menu.findItem(R.id.menu_upload).setVisible(true);
+        menu.findItem(R.id.menu_settings).setVisible(true);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.menu_delete) {
+        if (id == R.id.menu_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+        } else if (id == R.id.menu_delete) {
             if (picturesCheck.size() > 0) {
                 new AlertDialog.Builder(this)
                         .setTitle("檔案刪除")
@@ -145,6 +153,11 @@ public class PictureActivity extends AppCompatActivity {
                         .show();
             }
         } else if (id == R.id.menu_upload) {
+            if (url == null || url.equals("")) {
+                snackbar = Snackbar.make(findViewById(R.id.gridview), "url 未設定", Snackbar.LENGTH_INDEFINITE);
+                snackbar.show();
+                return true;
+            }
             if (picturesCheck.size() > 0) {
                 new AlertDialog.Builder(this)
                         .setTitle("檔案傳送")
