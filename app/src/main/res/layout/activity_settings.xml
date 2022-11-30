@@ -27,4 +27,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/settings_update_url"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="更新"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/settings_url"
+        app:layout_constraintStart_toStartOf="@+id/settings_url"
+        app:layout_constraintTop_toBottomOf="@+id/settings_url" />
 </androidx.constraintlayout.widget.ConstraintLayout>

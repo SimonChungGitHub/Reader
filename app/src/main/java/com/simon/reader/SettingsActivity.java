@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Objects;
@@ -51,10 +52,17 @@ public class SettingsActivity extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         TextView url = findViewById(R.id.settings_url);
+        Button updateUrl = findViewById(R.id.settings_update_url);
+
         url.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                preferences.edit().putString("url", url.getText().toString().trim()).apply();
+            if (hasFocus) {
+                updateUrl.setVisibility(View.VISIBLE);
             }
+        });
+        updateUrl.setOnClickListener(v -> {
+            preferences.edit().putString("url", url.getText().toString().trim()).apply();
+            v.setVisibility(View.GONE);
+            url.setFocusable(false);
         });
 
     }
