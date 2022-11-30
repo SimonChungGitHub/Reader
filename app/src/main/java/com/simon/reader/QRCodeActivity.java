@@ -128,21 +128,24 @@ public class QRCodeActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 0) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
-                if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+        switch (requestCode) {
+            case 0:
+                if (grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission is granted. Continue the action or workflow
+                    // in your app.
+                } else {
                     new AlertDialog.Builder(this)
-                            .setTitle("提示")
+                            .setTitle("權限請求")
                             .setMessage("掃描必須開啟相機的權限")
-                            .setNegativeButton(android.R.string.ok, (dialog, which) -> {
+                            .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                                 dialog.cancel();
                                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
                             })
+                            .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.dismiss())
                             .show();
                 }
-            } else {
-                qrCodeMsg.setText("");
-            }
+                break;
         }
     }
 
