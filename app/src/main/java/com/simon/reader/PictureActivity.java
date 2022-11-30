@@ -120,6 +120,12 @@ public class PictureActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        url = preferences.getString("url", "");
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         pictures.clear();

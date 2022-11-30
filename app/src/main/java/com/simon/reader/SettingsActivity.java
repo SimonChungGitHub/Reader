@@ -51,9 +51,10 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        TextView url = findViewById(R.id.settings_url);
-        Button updateUrl = findViewById(R.id.settings_update_url);
 
+        Button updateUrl = findViewById(R.id.settings_update_url);
+        TextView url = findViewById(R.id.settings_url);
+        url.setText(preferences.getString("url", ""));
         url.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 updateUrl.setVisibility(View.VISIBLE);
